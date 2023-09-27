@@ -12,20 +12,15 @@ class Entregas extends Model
     protected $fillable = [
         'pedido',
         'linea',
+        'descripcion',
+        'cantidad',
+        'factura',
         'usuario_pedido',
         'usuario_entrega',
         'group_id',
         'firma',
+        'evidencia',
         'action_by',
+        'codigo_entrega',
     ];
-
-    public function group(){
-
-        return $this->belongsTo(Group::class);
-    }
-
-    public function user(){
-
-        return $this->belongsTo(User::class, 'action_by');
-    }
 }

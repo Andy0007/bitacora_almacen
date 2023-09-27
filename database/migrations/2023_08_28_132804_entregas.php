@@ -18,6 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string('pedido')->nullable();
             $table->integer('linea')->nullable();
+            $table->string('descripcion')->nullable();
+            $table->integer('cantidad')->nullable();
             $table->string('factura')->nullable();
             $table->string('usuario_pedido')->nullable();
             $table->string('usuario_entrega')->nullable();
@@ -26,6 +28,7 @@ return new class extends Migration
 
             $table->string('firma')->nullable();
             $table->string('evidencia')->nullable();
+            $table->string('codigo_entrega')->nullable();
 
             $table->integer('action_by')->nullable();
             $table->timestamps();

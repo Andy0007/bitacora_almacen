@@ -7,7 +7,7 @@
       <h5 class="mb-0">Registro Nuevo</h5>
     </div>
     <div class="card-body bg-light">
-        <form action="{{ route('admin_resumen_entrega.nuevo') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin_firma_entrega.nuevo') }}" method="POST" enctype="multipart/form-data">
         @csrf
             <div class="row gx-2">          
                 <div class="col-sm-1 mb-3">
@@ -41,22 +41,6 @@
                 <div class="col-sm-6 mb-3">
                     <label class="form-label" for="event-venue">Subir Evidencia</label>
                     <input class="form-control"  type="file" name="image" id="image" />
-                </div> 
-                <div class="col-sm-6 mb-3">
-                    <label class="form-label" for="event-venue">Pedido (Subir en Formato de 10 dígitos)</label>
-                    <input class="form-control" id="pedido" name="pedido" type="text" value="{{ old('pedido') }}" />
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label class="form-label" for="event-venue">Línea</label>
-                    <input class="form-control" id="linea" name="linea" type="text" value="{{ old('linea') }}" />
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label class="form-label" for="event-venue">Factura</label>
-                    <input class="form-control" id="factura" name="factura" type="text" value="{{ old('factura') }}" />
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label class="form-label" for="event-venue">Dueño del Pedido</label>
-                    <input class="form-control" id="usuario_pedido" name="usuario_pedido" type="text" value="{{ old('usuario_pedido') }}" />
                 </div>
                 <div class="col-sm-6 mb-3">
                     <label class="form-label" for="event-venue">Entregado a</label>
@@ -70,9 +54,48 @@
                         @endforeach 
                     </select>                        
                 </div>
-                            
+
+                
+                <div class="col-sm-6 mb-3">
+                    <a id="h1btn" name="h1btn" href="#" class="btn btn-primary btn-block mb-3" onclick="agrega(); "> + </a> 
+                </div>
+                <div class="col-sm-6 mb-3">
+                </div>
+                
+
+                <div  class="col-sm-12 mb-3 row">
+                    <div class="text-center col-lg-1">
+                        <label class="form-label" for="event-venue">N°</label>
+                    </div>
+                    <div class="col-sm-2 mb-2">
+                        <label class="form-label" for="event-venue">Pedido / Guía</label>
+                    </div>
+                    <div class="col-sm-1 mb-2">
+                        <label class="form-label" for="event-venue">Línea</label>
+                    </div>
+                    <div class="col-sm-2 mb-2">
+                        <label class="form-label" for="event-venue">Descripción</label>
+                    </div>
+                    <div class="col-sm-1 mb-2">
+                        <label class="form-label" for="event-venue">Cantidad</label>
+                    </div>
+                    <div class="col-sm-2 mb-2">
+                        <label class="form-label" for="event-venue">Factura</label>
+                    </div>
+                    <div class="col-sm-2 mb-2">
+                        <label class="form-label" for="event-venue">Dueño del Pedido</label>
+                    </div>
+                    <div class="col-sm-1 mb-2">
+                        <label class="form-label" for="event-venue">Eliminar</label>
+                    </div>
+                </div>
+                
+                <div id="dinamic">
+                </div>  
+                
+                
                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                    Guardar
+                    Registrar
                 </button>
             </div>
         </form>
@@ -98,4 +121,30 @@
             </script>        
         @endif
     @enderror
+    
+    <script>
+        nrow=0;
+        function agrega(){
+            nrow++;
+            console.log(nrow);
+            console.log("Ingresarás un nuevo elemento")
+            $("#dinamic").append("<div class='row' id='ag"+nrow+"'>" +
+                "<div class='text-center col-sm-1 mb-2'>"+nrow+"</div>"+
+                "<div class='col-sm-2 mb-2'><input class='form-control' name='pedido[]' id='pe"+nrow+"' placeholder='Pedido' required></div>"+
+                "<div class='col-sm-1 mb-2'><input class='form-control' name='linea[]' id='lin"+nrow+"' placeholder='Línea' required></div>"+
+                "<div class='col-sm-2 mb-2'><input class='form-control' name='descripcion[]' id='desc"+nrow+"' placeholder='Descripcion' required></div>"+
+                "<div class='col-sm-1 mb-2'><input class='form-control' name='cantidad[]' id='cant"+nrow+"' placeholder='Cantidad' required></div>"+
+                "<div class='col-sm-2 mb-2'><input class='form-control' name='factura[]' id='fac"+nrow+"' placeholder='Factura'></div>"+
+                "<div class='col-sm-2 mb-2'><input class='form-control' name='usuario_pedido[]' id='usu_ped"+nrow+"' placeholder='Dueño del Pedido' required></div>"+
+                "<div class='col-sm-1 mb-2'><button class='btn btn-outline-danger' onclick='elimina();return false;' >X</button></div>"+
+            "</div>");
+        }
+        function elimina(index){
+            console.log("Ingresa a eliminar input");
+            $("#ag"+nrow).remove();
+            nrow--;
+            console.log(nrow);
+        
+        }
+    </script>
 @endsection

@@ -4,7 +4,7 @@
 
 @section('content')
   <!-- Contenido -->
-<div id="tableExample2" data-list='{"valueNames":["pedido","usuario_pedido","usuario_entrega", "action_by"],"page":10,"pagination":true}'>
+<div id="tableExample2" data-list='{"valueNames":["pedido","usuario_pedido","usuario_entrega", "action_by"],"page":50,"pagination":true}'>
   <div class="table-responsive scrollbar">
     <table class="table table-bordered table-striped fs--2 mb-0">
       <div class="d-flex bg-200 mb-3 flex-row-reverse">

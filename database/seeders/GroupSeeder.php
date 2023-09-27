@@ -21,5 +21,17 @@ class GroupSeeder extends Seeder
         $group->description = "Grupo General";
         $group->status = "1";
         $group->save();
+        
+        $group1 = new Group();
+        $group1->group = "T.I.";
+        $group1->description = "";
+        $group1->status = "1";
+        $group1->save();
+        
+        $group2 = new Group();
+        $group2->group = "Mina";
+        $group2->description = "";
+        $group2->status = "1";
+        $group2->save();
     }
 }

@@ -146,9 +146,9 @@ Route::controller(AdministradorController::class)->group(function(){
         ->middleware('auth.admin')
         ->name('admin_entrega.nuevo');
 
-    Route::post('/resumen_entrega_nueva', 'resumen_entrega_nueva')
+    Route::post('/firma_entrega_nueva', 'firma_entrega_nueva')
         ->middleware('auth.admin')
-        ->name('admin_resumen_entrega.nuevo');
+        ->name('admin_firma_entrega.nuevo');
 
     /****************************/
     /****************************/

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-use App\Models\Article;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Group;
@@ -20,6 +19,7 @@ use App\Http\Requests;
 use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\GroupsEditRequest;
 use App\Models\Entregas;
+use App\Models\Lineas;
 use Illuminate\Http\Request;
 use LengthException;
 
@@ -380,12 +380,34 @@ class AdministradorController extends Controller
         return view('admin.entregas.nuevo', compact('ruta', 'grupos'));
     }
 
-    public function resumen_entrega_nueva(){
+    public function firma_entrega_nueva(){
+                
+        $this->validate(request(), [
+            'usuario_entrega' => 'required',
+            'pedido' => 'required',
+            ],
+            [
+                'usuario_entrega.required' => 'El usuario al que se entrega es obligatorio',
+                'pedido.required' => 'Se necesita al menos 1 línea',
+            ]
+        );
+        //return request();
         $ruta = '';
+        $i = 0;
 
-        $entrega = Entregas::create(request(['pedido', 'linea', 'factura', 'usuario_pedido', 'usuario_entrega', 'group_id', 'action_by']));
-        $last = Entregas::all()->last()->id;
+        $codigo_entrega = Str::random(10);
+        //return $codigo_entrega;
 
+        $tamano = request()->pedido;
+        foreach($tamano as $item){
+            print_r($codigo_entrega.' -- ');
+            $linea = Entregas::create(['codigo_entrega' => $codigo_entrega, 'pedido' => request()->pedido[$i], 'linea' => request()->linea[$i], 'descripcion' => request()->descripcion[$i], 'cantidad' => request()->cantidad[$i], 'factura' => request()->factura[$i], 'usuario_pedido' => request()->usuario_pedido[$i], 'usuario_entrega' => request()->usuario_entrega, 'group_id' => request()->group_id]);
+
+            $i++;
+        }
+        
+
+        /*
         $ruta = '../storage/app/evidencias/';
         if(request()->hasFile('image')){
 
@@ -398,8 +420,9 @@ class AdministradorController extends Controller
             
             $update = Entregas::query()->where(['id' => $last])->update(['evidencia'=>$nombre_imagen]);
         }
-        return 'Test';
-        return view('admin.entregas.nuevo', compact('ruta', 'grupos'));
+        */
+
+        return view('admin.entregas', compact('ruta'));
     }
 
 }
